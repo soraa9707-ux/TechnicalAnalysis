@@ -1,0 +1,7 @@
+
+# Example portfolio: Yahoo Finance ticker symbols
+AAPL
+MSFT
+NVDA
+AMZN
+GOOGL
