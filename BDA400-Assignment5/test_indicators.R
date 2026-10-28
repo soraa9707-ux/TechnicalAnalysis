@@ -1,0 +1,22 @@
+# Lightweight base-R tests. Run from repository root:
+# Rscript tests/test_indicators.R
+source("R/sma.R")
+source("R/ema.R")
+source("R/macd.R")
+source("R/stdev.R")
+source("R/linreg.R")
+source("R/rsi.R")
+source("R/stoch_rsi.R")
+source("R/crossover.R")
+source("R/crossunder.R")
+
+stopifnot(isTRUE(all.equal(sma(c(10, 12, 15, 20), 3), c(12.3333333333, 15.6666666667))))
+stopifnot(isTRUE(all.equal(ema(c(10, 12, 15), 3), c(10, 11, 13))))
+stopifnot(isTRUE(all.equal(stdev(c(1, 2, 3)), sqrt(2 / 3))))
+stopifnot(isTRUE(all.equal(linreg(c(2, 4, 6, 8), 4, 0)$slope, 2)))
+stopifnot(length(macd(c(100, 105, 110, 115, 120), 2, 4, 2)$histogram) == 5)
+stopifnot(length(rsi(c(1, 2, 1, 3, 2, 4), 2)) == 6)
+stopifnot(length(stoch_rsi(c(1, 2, 1, 3, 2, 4, 5), 2, 2, 2)$k_line) == 7)
+stopifnot(identical(crossover(c(1, 3), c(2, 2)), c("None", "Up")))
+stopifnot(identical(crossunder(c(3, 1), c(2, 2)), c("None", "True")))
+cat("All indicator tests passed.\\n")
